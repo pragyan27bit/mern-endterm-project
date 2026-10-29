@@ -42,6 +42,9 @@ const planSchema = new mongoose.Schema({
     minutes: { type: Number, required: true }
   }],
   conflicts: [{ task: { type: mongoose.Schema.Types.ObjectId, ref: 'Task' }, minutes: Number, reason: String }],
+  days: [{ type: String }],
+  scheduledMinutes: { type: Number, default: 0 },
+  unallocatedMinutes: { type: Number, default: 0 },
   generatedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 

@@ -1,5 +1,5 @@
 import React,{useEffect,useRef,useState} from 'react';
-import { ArrowRight, BookOpen, CheckCircle2, Clock3, Coffee, Flame, Headphones, Pause, Play, RotateCcw, Save, Sparkles, Timer, Zap } from 'lucide-react';
+import { ArrowRight, BookOpen, CheckCircle2, Clock3, Coffee, Flame, Headphones, Pause, Play, Plus, RotateCcw, Save, Sparkles, Timer, Zap } from 'lucide-react';
 import { Button, Empty, Field, PageHeader } from '../components/UI';
 import { minutesHuman } from '../lib/api';
 export default function Focus({tasks,insights,onLog,goTasks,busy}){
@@ -23,8 +23,7 @@ export default function Focus({tasks,insights,onLog,goTasks,busy}){
  <div className="timer-actions"><Button disabled={!selected||seconds===0} icon={active?Pause:Play} onClick={()=>setActive(!active)}>{active?'Pause session':elapsed?'Resume focus':'Start focusing'}</Button><Button kind="secondary" icon={RotateCcw} onClick={()=>{setActive(false);setSeconds(length*60);}}>Reset</Button>{elapsed>=60&&<Button kind="outline" icon={Save} busy={busy} onClick={saveTimer}>Save {logged} min</Button>}</div><p className="timer-hint">Sessions of at least 1 minute can be saved. The timer counts only while this page remains open.</p>
  </section>
  <aside className="focus-side"><div className="focus-tip"><div className="tip-head"><Headphones size={21}/><span>THE FOCUS ZONE</span></div><h3>Small sessions.<br/>Big outcomes.</h3><p>You'll be surprised what 25 minutes of undistracted effort can do.</p><div className="focus-tip-art">✦ <span>◎</span> ✦</div></div>
- <div className="panel manual-panel"><div className="manual-heading"><div className="manual-icon"><Clock3 size={19}/></div><div><h3>Log study time</h3><p>Already studied offline?</p></div></div><form onSubmit={saveManual}><Field label="Minutes spent"><input required type="number" min="1" max="240" value={manual} onChange={e=>setManual(e.target.value)}/></Field><Button type="submit" icon={PlusIcon} busy={busy} disabled={!selected} className="full-width">Add study session</Button></form></div>
+ <div className="panel manual-panel"><div className="manual-heading"><div className="manual-icon"><Clock3 size={19}/></div><div><h3>Log study time</h3><p>Already studied offline?</p></div></div><form onSubmit={saveManual}><Field label="Minutes spent"><input required type="number" min="1" max="240" value={manual} onChange={e=>setManual(e.target.value)}/></Field><Button type="submit" icon={Plus} busy={busy} disabled={!selected} className="full-width">Add study session</Button></form></div>
  <div className="panel mini-history"><div className="mini-history-title"><h3>Recent sessions</h3><Flame size={19}/></div>{insights?.recentSessions?.length?insights.recentSessions.slice(0,4).map(s=><div className="session-line" key={s._id}><span className="session-dot"><Zap size={15}/></span><div><strong>{s.taskTitle}</strong><small>{s.day}</small></div><b>{minutesHuman(s.minutes)}</b></div>):<p className="mini-placeholder">Your focus history will appear here.</p>}</div>
  </aside></div></div>
 }
-function PlusIcon({size=17}){return <Save size={size}/>}

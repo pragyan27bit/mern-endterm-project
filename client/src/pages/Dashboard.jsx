@@ -2,8 +2,9 @@ import React from 'react';
 import { ArrowRight, ArrowUpRight, BookOpen, CalendarDays, CheckCircle2, ChevronRight, Clock3, Flame, Plus, Sparkles, Target, Timer, WandSparkles } from 'lucide-react';
 import { PageHeader, ProgressBar, Priority, Empty, Button } from '../components/UI';
 import { addDays, dayISO, minutesHuman, prettyDate } from '../lib/api';
-const today=dayISO();
+
 export default function Dashboard({user,tasks,plan,insights,setPage,onAdd,onPlan,onStatus,busy}){
+ const today = dayISO();
  const stats=insights?.stats||{}, next=insights?.nextUp||[];
  const todayBlocks=(plan?.blocks||[]).filter(b=>b.day===today);
  const totalToday=todayBlocks.reduce((n,b)=>n+b.minutes,0);

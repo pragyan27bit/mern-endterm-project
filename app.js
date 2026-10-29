@@ -3,6 +3,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
+import path from 'node:path';
 import api from './server/src/routes/api.js';
 
 // Vercel runs this Express app as a function, not as a permanent listening server.
@@ -38,6 +39,17 @@ app.use('/api', async (_req, res, next) => {
 app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 app.use('/api', api);
 app.use('/api', (_req, res) => res.status(404).json({ error: 'API endpoint not found.' }));
+
+// Serve built static assets if requests reach Express, with fallback to index.html for SPA
+const pub = path.join(process.cwd(), 'public');
+app.use(express.static(pub, { maxAge: '1h' }));
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) return next();
+  res.sendFile(path.join(pub, 'index.html'), err => {
+    if (err && !res.headersSent) next();
+  });
+});
+
 app.use((err, _req, res, _next) => {
   console.error('Request error:', err.message);
   if (err.code === 11000) return res.status(409).json({ error: 'That value is already taken.' });
@@ -46,6 +58,4 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: 'Something went wrong. Please try again.' });
 });
 
-// React's compiled files are copied to /public by build:vercel.
-// Vercel's CDN serves /public independently of Express.
 export default app;
