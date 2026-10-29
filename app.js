@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import api from './server/src/routes/api.js';
 
 // Vercel runs this Express app as a function, not as a permanent listening server.
@@ -40,13 +41,16 @@ app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 app.use('/api', api);
 app.use('/api', (_req, res) => res.status(404).json({ error: 'API endpoint not found.' }));
 
-// Serve built static assets if requests reach Express, with fallback to index.html for SPA
-const pub = path.join(process.cwd(), 'public');
+// Serve built frontend assets
+const root = path.dirname(fileURLToPath(import.meta.url));
+const pub = path.join(root, 'public');
+const dist = path.join(root, 'client/dist');
 app.use(express.static(pub, { maxAge: '1h' }));
+app.use(express.static(dist, { maxAge: '1h' }));
 app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api')) return next();
   res.sendFile(path.join(pub, 'index.html'), err => {
-    if (err && !res.headersSent) next();
+    if (err) res.sendFile(path.join(dist, 'index.html'), err2 => { if (err2 && !res.headersSent) next(); });
   });
 });
 
