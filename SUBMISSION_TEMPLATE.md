@@ -6,7 +6,7 @@
 
 **Problem Statement:** Students struggle to convert coursework deadlines and estimated effort into achievable daily plans. PacePilot automatically schedules tasks within realistic study-time budgets, tracks progress, and flags unschedulable work.
 
-**GitHub Repository:** [Paste your public GitHub repo URL here]
+**GitHub Repository:** https://github.com/pragyan27bit/mern-endterm-project
 
 **Deployed Application / Build:** https://pace-pilot-vercel.vercel.app
 
