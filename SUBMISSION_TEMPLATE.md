@@ -2,17 +2,17 @@
 
 **Project Name:** PacePilot — Deadline-Aware Academic Planner
 
-**Student Name:** [Your full name]
+**Student Name:** Pragyan Bansal
 
 **Problem Statement:** Students struggle to convert coursework deadlines and estimated effort into achievable daily plans. PacePilot automatically schedules tasks within realistic study-time budgets, tracks progress, and flags unschedulable work.
 
-**GitHub Repository:** [Paste the public GitHub URL after pushing your source]
+**GitHub Repository:** [Paste your public GitHub repo URL here]
 
-**Deployed Application / Build:** [Paste the live Render HTTPS URL after deployment]
+**Deployed Application / Build:** https://pace-pilot-vercel.vercel.app
 
 **Demo Video:** [Paste a publicly accessible 3–5 minute Loom/Drive/YouTube URL]
 
-**Tech Stack:** React, Vite, Node.js, Express, MongoDB Atlas, Mongoose, JWT, bcrypt, Recharts, Render.
+**Tech Stack:** React 18, Vite 6, Node.js, Express, MongoDB Atlas, Mongoose, JWT, bcrypt, Recharts, Vercel Serverless.
 
 **Major Features:** Secure sign-up/sign-in; coursework and prerequisite management; 7-day time-constrained scheduling with conflict reporting; Pomodoro and manual study logging; study analytics and configurable daily capacity.
 
